@@ -1,0 +1,87 @@
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>websocket example</title> 
+
+</head> 
+  
+<body> 
+<p> 
+  <label>请选择一个图片：</label> 
+  <input type="file" id="imagefile" /> 
+  <input type="button" value="上传" onClick="send()" /> 
+</p> 
+<div name="result" id="result">
+  <!-- 这里用来显示图片结果-->
+</div> 
+<script type="text/javascript"> 
+
+ var websocket;
+
+if(window.WebSocket != undefined) {
+
+    websocket = new WebSocket('ws://{{.Host}}/ws');
+   
+    websocket.onmessage = function (event) { 
+        document.getElementById("result").innerHTML = event.data;
+    }
+
+    websocket.onerror  = function (event) { 
+        document.getElementById("result").innerHTML = event.data;
+    }
+}
+
+function send() 
+{   
+    var file = document.getElementById("imagefile").files[0];    
+
+    if(!/image\/\w+/.test(file.type)) //判断获取的是否为图片文件 
+    { 
+        alert("请确保文件为图像文件"); 
+        return false; 
+    } 
+
+    document.getElementById("result").innerHTML = "start upload ...";
+
+    var fileinfo = new Object();
+    fileinfo.FileName = file.name;
+    fileinfo.FileSize = file.size;
+
+    var fileinfostr = JSON.stringify(fileinfo);
+
+    websocket.send(pack("info", new Blob([fileinfostr])));
+
+    console.log("send info"+fileinfostr);
+
+    websocket.send(pack("data",file));
+
+    console.log("send data");
+
+    websocket.send(pack("flag", new Blob(["filerecvend"])));
+
+    console.log("send end flag");
+
+}
+
+function pack(type,buf){  
+
+    var buffers = [];
+
+    buffers.push(new Blob([type]));
+
+    buffers.push(int2buf(buf.size+8));
+
+    buffers.push(buf);
+
+    return new Blob(buffers, {type:"application/octet-stream"});
+}
+
+function int2buf(n) {
+    var buffer = new ArrayBuffer(4);
+    var int32View = new DataView(buffer);
+    int32View.setInt32(0, n, false);
+    return buffer;
+}
+</script> 
+</body> 
+</html>
