@@ -5,6 +5,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 	"html/template"
 	"imgserver/utils"
+	"io"
 	"net/http"
 	"os"
 	"path"
@@ -48,8 +49,10 @@ func (p *websocketServer) Start() {
 	log.Infof("HTTP: listening on %s", listener.Addr())
 
 	http.HandleFunc("/", serveHome)
-	http.HandleFunc("/example", serveExample)
 	http.HandleFunc("/ws", p.serveWs)
+	http.HandleFunc("/websocket_example", serveExample)
+	http.HandleFunc("/upload", p.serverUpload)
+	http.HandleFunc("/http_example", servehttpExample)
 
 	if err := http.Serve(listener, nil); err != nil {
 		log.Warnf("httpserver (%s) start failed - %s", p.ctx.imgserver.getOpts().HTTPAddress, err)
@@ -203,14 +206,18 @@ const homeHTML = `<!DOCTYPE html>
     <body>
         <div>
         	<h2>It's a websocket image upload service</h2>
-        	<div>the connection address is ws://{{.Host}}/ws</div>	
+        	<div>
+        		<p>the connection address is ws://{{.Host}}/ws</p>
+				<p><a href="/websocket_example">websocket upload example</a></p>
+				<p><a href="/http_example">http upload example</a></p>
+        	</div>
         </div>        
     </body>
 </html>
 `
 
 func serveExample(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/example" {
+	if r.URL.Path != "/websocket_example" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
@@ -227,6 +234,72 @@ func serveExample(w http.ResponseWriter, r *http.Request) {
 	}
 	currentDir := utils.GetCurrentDir()
 	tempfile := utils.GetParentDir(currentDir) + "\\client\\websocket_send_example.html"
+	exampleTempl, err := template.ParseFiles(tempfile)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusExpectationFailed)
+		return
+	}
+	exampleTempl.Execute(w, &v)
+}
+
+func (p *websocketServer) serverUpload(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/upload" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	w.Header().Set("Content-Type", "multipart/form-data; charset=utf-8")
+
+	if r.Method == "POST" {
+		file, fileHeader, err := r.FormFile("imagefile")
+		if err != nil {
+			log.Warnf("receive file error : %s", err.Error())
+			http.Error(w, err.Error(), 500)
+			return
+		}
+		defer file.Close()
+
+		file_name := fileHeader.Filename
+
+		log.Info("receive filename" + file_name)
+
+		uploadPath := p.ctx.imgserver.getOpts().UploadPath
+		fileext := strings.ToLower(path.Ext(file_name))
+		filename := uploadPath + utils.GetGuid() + fileext
+		f, err := os.Create(filename)
+		defer f.Close()
+		io.Copy(f, file)
+
+		log.Info("file received success")
+
+		p.ctx.imgserver.watermarkChan <- filename
+
+		return
+	}
+	return
+}
+
+func servehttpExample(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/http_example" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	var v = struct {
+		Host string
+	}{
+		r.Host,
+	}
+	currentDir := utils.GetCurrentDir()
+	tempfile := utils.GetParentDir(currentDir) + "\\client\\http_send_example.html"
 	exampleTempl, err := template.ParseFiles(tempfile)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusExpectationFailed)
