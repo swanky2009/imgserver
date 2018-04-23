@@ -17,7 +17,7 @@ import (
 	"time"
 )
 
-func nsqdFlagSet(opts *imgserver.Options) *flag.FlagSet {
+func newFlagSet(opts *imgserver.Options) *flag.FlagSet {
 	flagSet := flag.NewFlagSet("imgserver", flag.ExitOnError)
 
 	// basic options
@@ -70,13 +70,13 @@ func (p *program) Init(env svc.Environment) error {
 func (p *program) Start() error {
 	opts := imgserver.NewOptions()
 
-	flagSet := nsqdFlagSet(opts)
+	flagSet := newFlagSet(opts)
 	flagSet.Parse(os.Args[1:])
 
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	if flagSet.Lookup("version").Value.(flag.Getter).Get().(bool) {
-		fmt.Println(g.String("imgserver"))
+		fmt.Println(g.Version())
 		os.Exit(0)
 	}
 
