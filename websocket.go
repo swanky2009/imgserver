@@ -3,16 +3,16 @@ package imgserver
 import (
 	"encoding/json"
 	log "github.com/Sirupsen/logrus"
+	"github.com/gorilla/websocket"
 	"github.com/swanky2009/imgserver/utils"
 	"html/template"
 	"io"
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 	"time"
-
-	"github.com/gorilla/websocket"
 )
 
 type websocketServer struct {
@@ -232,7 +232,7 @@ func serveExample(w http.ResponseWriter, r *http.Request) {
 	}{
 		r.Host,
 	}
-	tempfile := utils.GetCurrentDir() + "\\templates\\websocket_send_example.html"
+	tempfile := filepath.Join(utils.GetCurrentDir(), "templates", "websocket_send_example.html")
 	exampleTempl, err := template.ParseFiles(tempfile)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusExpectationFailed)
@@ -297,7 +297,7 @@ func servehttpExample(w http.ResponseWriter, r *http.Request) {
 	}{
 		r.Host,
 	}
-	tempfile := utils.GetCurrentDir() + "\\templates\\http_send_example.html"
+	tempfile := filepath.Join(utils.GetCurrentDir(), "templates", "http_send_example.html")
 	exampleTempl, err := template.ParseFiles(tempfile)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusExpectationFailed)
