@@ -1,7 +1,7 @@
 package imgserver
 
 import (
-	"imgserver/utils"
+	"github.com/swanky2009/imgserver/utils"
 )
 
 type FileInfo struct {

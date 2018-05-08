@@ -3,7 +3,7 @@ package imgserver
 import (
 	"encoding/json"
 	log "github.com/Sirupsen/logrus"
-	"imgserver/utils"
+	"github.com/swanky2009/imgserver/utils"
 	"io"
 	"net"
 	"os"

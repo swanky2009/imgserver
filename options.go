@@ -41,7 +41,7 @@ func NewOptions() *Options {
 		TCPAddress:       "0.0.0.0:2300",
 		HTTPAddress:      "0.0.0.0:2301",
 		UploadPath:       "d:\\web\\upload\\",
-		WatermarkPath:    "d:\\web\\images\\watermark.png",
+		WatermarkPath:    "watermark.png",
 		ReceiveTimeout:   120,
 	}
 }

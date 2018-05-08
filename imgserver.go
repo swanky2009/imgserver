@@ -2,7 +2,7 @@ package imgserver
 
 import (
 	log "github.com/Sirupsen/logrus"
-	"imgserver/utils"
+	"github.com/swanky2009/imgserver/utils"
 	"net"
 	"os"
 	"sync"

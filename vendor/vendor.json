@@ -1,0 +1,87 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "rcoUTEGR7KVr963l6P1rlMaYCzA=",
+			"path": "github.com/BurntSushi/toml",
+			"revision": "a368813c5e648fee92e5f6c30e3944ff9d5e8895",
+			"revisionTime": "2017-06-26T11:06:00Z"
+		},
+		{
+			"checksumSHA1": "p7qryKnoi6spTwSXFG+1nJGnql4=",
+			"path": "github.com/Sirupsen/logrus",
+			"revision": "778f2e774c725116edbc3d039dc0dfc1cc62aae8",
+			"revisionTime": "2018-03-29T22:59:52Z"
+		},
+		{
+			"checksumSHA1": "NARygmA7ZlnsuXCfEMRabnsbjzI=",
+			"path": "github.com/disintegration/imaging",
+			"revision": "ac27d1805a555e1754fa177216ee07f4e63c30b5",
+			"revisionTime": "2017-03-19T14:47:19Z"
+		},
+		{
+			"checksumSHA1": "4mai1Q1zl5QTW2VwJnfQ6r/vlJw=",
+			"path": "github.com/gorilla/websocket",
+			"revision": "a69d9f6de432e2c6b296a947d8a5ee88f68522cf",
+			"revisionTime": "2017-07-18T20:23:41Z"
+		},
+		{
+			"checksumSHA1": "kcMd95pHPbvBHYeOuMmsc1RBd7s=",
+			"path": "github.com/judwhite/go-svc/svc",
+			"revision": "52e9762f4dcd5373a8ecdefd85ed089cac66afa4",
+			"revisionTime": "2017-02-05T09:16:34Z"
+		},
+		{
+			"checksumSHA1": "SxRzmpaZauq45U27fLR6/3fD3pM=",
+			"path": "github.com/mreiferson/go-options",
+			"revision": "77551d20752b54535462404ad9d877ebdb26e53d",
+			"revisionTime": "2016-12-29T19:00:02Z"
+		},
+		{
+			"checksumSHA1": "ZaU56svwLgiJD0y8JOB3+/mpYBA=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "6914964337150723782436d56b3f21610a74ce7b",
+			"revisionTime": "2017-07-20T17:50:53Z"
+		},
+		{
+			"checksumSHA1": "UD/pejajPyS7WaWVXq2NU1eK4Ic=",
+			"path": "golang.org/x/image/bmp",
+			"revision": "426cfd8eeb6e08ab1932954e09e3c2cb2bc6e36d",
+			"revisionTime": "2017-05-14T06:33:48Z"
+		},
+		{
+			"checksumSHA1": "SmD/LkP3vgBGPKT6I38wH7Jb6QI=",
+			"path": "golang.org/x/image/tiff",
+			"revision": "426cfd8eeb6e08ab1932954e09e3c2cb2bc6e36d",
+			"revisionTime": "2017-05-14T06:33:48Z"
+		},
+		{
+			"checksumSHA1": "PF6VjvpNpOdR8epWH1Liyy7x1Qg=",
+			"path": "golang.org/x/image/tiff/lzw",
+			"revision": "426cfd8eeb6e08ab1932954e09e3c2cb2bc6e36d",
+			"revisionTime": "2017-05-14T06:33:48Z"
+		},
+		{
+			"checksumSHA1": "Tkb1hBdBWeO7SGjixS2Hm48F6+s=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "fb4cac33e3196ff7f507ab9b2d2a44b0142f5b5a",
+			"revisionTime": "2017-06-14T06:48:48Z"
+		},
+		{
+			"checksumSHA1": "dOxtjHQMMLyzm95T2+GzMkY1iEM=",
+			"origin": "github.com/judwhite/go-svc/svc/vendor/golang.org/x/sys/windows",
+			"path": "golang.org/x/sys/windows",
+			"revision": "52e9762f4dcd5373a8ecdefd85ed089cac66afa4",
+			"revisionTime": "2017-02-05T09:16:34Z"
+		},
+		{
+			"checksumSHA1": "n0axU0UbSjiDo9zBcOV65ZeDX1U=",
+			"origin": "github.com/judwhite/go-svc/svc/vendor/golang.org/x/sys/windows/svc",
+			"path": "golang.org/x/sys/windows/svc",
+			"revision": "52e9762f4dcd5373a8ecdefd85ed089cac66afa4",
+			"revisionTime": "2017-02-05T09:16:34Z"
+		}
+	],
+	"rootPath": "imgserver"
+}
