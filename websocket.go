@@ -232,8 +232,7 @@ func serveExample(w http.ResponseWriter, r *http.Request) {
 	}{
 		r.Host,
 	}
-	currentDir := utils.GetCurrentDir()
-	tempfile := utils.GetParentDir(currentDir) + "\\client\\websocket_send_example.html"
+	tempfile := utils.GetCurrentDir() + "\\templates\\websocket_send_example.html"
 	exampleTempl, err := template.ParseFiles(tempfile)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusExpectationFailed)
@@ -298,8 +297,7 @@ func servehttpExample(w http.ResponseWriter, r *http.Request) {
 	}{
 		r.Host,
 	}
-	currentDir := utils.GetCurrentDir()
-	tempfile := utils.GetParentDir(currentDir) + "\\client\\http_send_example.html"
+	tempfile := utils.GetCurrentDir() + "\\templates\\http_send_example.html"
 	exampleTempl, err := template.ParseFiles(tempfile)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusExpectationFailed)
