@@ -5,6 +5,7 @@ import (
 	"github.com/swanky2009/imgserver/utils"
 	"net"
 	"os"
+	"path/filepath"
 	"sync"
 	"sync/atomic"
 )
@@ -99,7 +100,7 @@ func (n *IMGSERVER) Exit() {
 }
 
 func (n *IMGSERVER) Watermark() {
-	watermarkpath := n.getOpts().WatermarkPath
+	watermarkpath := filepath.Join(utils.GetCurrentDir(), n.getOpts().WatermarkPath)
 	for {
 		select {
 		case filename := <-n.watermarkChan:
