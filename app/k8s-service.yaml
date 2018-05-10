@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: imgserver
+  labels:
+    name: imgserver
+spec:
+  type: NodePort
+  ports:
+  - name: tcp
+    protocol: TCP
+    port: 2300
+    targetPort: 2300
+    nodePort: 32300
+  - name: http
+    protocol: TCP
+    port: 2301
+    targetPort: 2301
+    nodePort: 32301
+  selector:
+    name: imgserver
+
